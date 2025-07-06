@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "299948141830",
+    "firebase_url": "https://cmsc436gp-default-rtdb.firebaseio.com",
+    "project_id": "cmsc436gp",
+    "storage_bucket": "cmsc436gp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299948141830:android:3b2b4f0bba1f612914c287",
+        "android_client_info": {
+          "package_name": "com.example.group_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDrUfpUWLaiYPMpxMJ3K4d2FN7f09ruuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
