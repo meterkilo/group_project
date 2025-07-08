@@ -1,5 +1,7 @@
 package com.example.group_project
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -26,6 +28,12 @@ class GameplayActivity: AppCompatActivity() {
     private val vm: GamePlayViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPref:SharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        when {
+            sharedPref.getString("colorTheme","light")!! == "light" -> setTheme(R.style.Theme_lightTheme)
+            sharedPref.getString("colorTheme","light")!! == "dark" -> setTheme(R.style.Theme_darkTheme)
+        }
+
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
         setContentView(R.layout.activity_gameplay)
