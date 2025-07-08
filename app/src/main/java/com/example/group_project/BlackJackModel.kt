@@ -23,14 +23,14 @@ class BlackJackModel(private val context: Context, startBalance:Int) {
         }
     }
 
-    fun hit():Result? {
+    fun hit():RoundResult? {
         player.add(deck.draw())
         return if (player.value()>21) finishRound() else null
     }
 
-    fun stand(): Result = finishRound()
+    fun stand(): RoundResult = finishRound()
 
-    private fun finishRound(): Result{
+    private fun finishRound(): RoundResult{
         while(dealer.value()< 17){
             dealer.add(deck.draw())
 
@@ -53,7 +53,7 @@ class BlackJackModel(private val context: Context, startBalance:Int) {
             Outcome.PUSH -> 0
         }
         balance+= net
-        return Result(outcome,net,balance)
+        return RoundResult(outcome,net,balance)
     }
 }
 
@@ -61,7 +61,7 @@ enum class Outcome{
     PLAYER_BLACKJACK ,PLAYER_WIN, DEALER_WIN, PLAYER_BUST, PUSH
     // ace +10, p > d but p=<21 or d >21, same but with d winning, p>21, tie
 }
-data class Result (
+data class RoundResult (
     val outcome : Outcome, val netChange : Int, val finalBalance :  Int
 )
 private class Deck(private val context: Context){
