@@ -20,11 +20,17 @@
             android:layout_gravity="center">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi, "
+                android:textSize="28sp"/>
+
+            <EditText
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
-                android:id="@+id/hi_user_tv"
-                android:text="Hi, username"
+                android:id="@+id/username"
+                android:hint="Enter Username"
                 android:textSize="28sp"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
