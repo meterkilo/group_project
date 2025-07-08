@@ -1,6 +1,5 @@
 package com.example.group_project
 
-import android.content.Intent
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
@@ -32,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setupThemeButtons()
 
         //Retrieve Color Theme from preferences before creation
         sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -52,11 +49,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val leaderboardButton = findViewById<Button>(R.id.leaderboard_button)
-        leaderboardButton.setOnClickListener {
-            val intent = Intent(this, LeaderboardActivity::class.java)
-            startActivity(intent)
-        }
 
         // instantiating views and buttons
         displayNameET = findViewById(R.id.username)
@@ -66,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         playButton = findViewById(R.id.play_button)
         leaderboardButton = findViewById(R.id.leaderboard_button)
         localGameHistoryLV = findViewById(R.id.local_history)
+
+        setupThemeButtons()
 
         // listener for buttons
         var listener : Listener = Listener()
