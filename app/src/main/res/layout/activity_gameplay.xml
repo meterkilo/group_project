@@ -53,15 +53,7 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:background="#F800"
-        android:layout_margin="20dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
 
             <!---Dealer cards - recycler view -->
             <androidx.recyclerview.widget.RecyclerView
@@ -70,6 +62,10 @@
                 android:layout_weight="1"
                 android:layout_marginTop="20dp"
                 android:id="@+id/dealerRecycler"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clipToPadding="false"
+                android:scrollbars="horizontal"
                 />
             <!---Player cards - recycler view -->
             <androidx.recyclerview.widget.RecyclerView
@@ -78,6 +74,10 @@
                 android:layout_weight="1"
                 android:layout_marginTop="20dp"
                 android:id="@+id/playerRecycler"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clipToPadding="false"
+                android:scrollbars="horizontal"
                 />
             <!--
             <ImageView
@@ -107,7 +107,7 @@
                 android:layout_margin="5dp"
                 android:id="@+id/dealer_card4">
             </ImageView> -->
-        </LinearLayout>
+
 
        <!-- <LinearLayout
             android:layout_width="0dp"

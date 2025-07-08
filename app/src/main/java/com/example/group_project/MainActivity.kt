@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     inner class Listener : View.OnClickListener {
         override fun onClick(v: View?) {
             if (v == playButton) {
-                var intent : Intent = Intent(this@MainActivity, Blackjack::class.java)
+                var intent : Intent = Intent(this@MainActivity, GameplayActivity::class.java)
                 startActivity(intent)
             } else if (v == leaderboardButton) {
                 var intent : Intent = Intent(this@MainActivity, Leaderboard::class.java)

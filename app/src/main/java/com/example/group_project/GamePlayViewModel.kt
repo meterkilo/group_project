@@ -1,6 +1,7 @@
 package com.example.group_project
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,7 @@ class GamePlayViewModel(app: Application): AndroidViewModel(app) {
     val player_cards: LiveData<List<Card>> = _player_cards
 
     private val _dealer_cards = MutableLiveData<List<Card>>(emptyList())
-    val dealerr_cards: LiveData<List<Card>> = _dealer_cards
+    val dealer_cards: LiveData<List<Card>> = _dealer_cards
 
 
     private val _result = MutableLiveData<RoundResult?>()
@@ -23,6 +24,7 @@ class GamePlayViewModel(app: Application): AndroidViewModel(app) {
     val balance: LiveData<Int> = _balance
 
     fun startRound(bet:Int){
+        Log.d("MainActivity","In view model.startround, balance =${game.balance}")
         game.startRound(bet)
         _result.value = null
         _player_cards.value = game.player.cards

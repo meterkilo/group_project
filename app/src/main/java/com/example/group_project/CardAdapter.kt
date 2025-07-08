@@ -1,5 +1,6 @@
 package com.example.group_project
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,10 @@ class CardAdapter (
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.cardImage.setImageResource(cards[position].image_resID)
+        val card = cards[position]
+        Log.d("CardAdapter","Binding ${card.rank} of  ${card.suit} -> resid = ${card.image_resID}")
+
+        holder.cardImage.setImageResource(card.image_resID)
     }
     override fun getItemCount(): Int = cards.size
 

@@ -2,6 +2,7 @@ package com.example.group_project
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -26,23 +27,34 @@ class GameplayActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("MainActivity","entered oncreate in gameplayactivity")
         setContentView(R.layout.activity_gameplay)
 
         dealerRV = findViewById(R.id.dealerRecycler)
-        playerRV = findViewById(R.id.playerRecycler)
+        dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        dealerRV.adapter = dealerAdapter
+        Log.d("MainActivity","dealerRv.adapter = ${dealerRV.adapter != null}")
+
+        playerRV= findViewById(R.id.playerRecycler)
+        playerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        playerRV.adapter = playerAdapter
+
+
         hitBTN = findViewById(R.id.hit_button)
         standBTN =findViewById(R.id.stand_button)
         backBTN = findViewById(R.id.leave_game_button)
         balanceTextView = findViewById(R.id.game_balance)
 
-        dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        dealerRV.adapter = dealerAdapter
+        hitBTN.isEnabled =false
+        standBTN.isEnabled = false
+        //
 
-        playerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        playerRV.adapter = playerAdapter
-
-        vm.dealerr_cards.observe(this) {cards -> dealerAdapter.update(cards)  }
-        vm.player_cards.observe(this) {cards -> playerAdapter.update(cards)  }
+        vm.dealer_cards.observe(this) {cards ->
+            Log.d("MainActivity","Dealer cards list size = ${cards.size}")
+            dealerAdapter.update(cards)  }
+        vm.player_cards.observe(this) {cards ->
+            Log.d("MainActivity","Player cards list size = ${cards.size}")
+            playerAdapter.update(cards)  }
         vm.balance.observe(this) {bal -> balanceTextView.text = "$$bal"  }
 
         vm.result.observe(this){ result ->
@@ -58,12 +70,13 @@ class GameplayActivity: AppCompatActivity() {
             }
         }
 
+        vm.startRound(bet= 50)
+
         hitBTN.setOnClickListener {vm.hit() }
         standBTN.setOnClickListener { vm.stand() }
         backBTN.setOnClickListener { finish() }
 
-        //need to enter a edit text or something here
-        vm.startRound(bet = 50)
+
 
         hitBTN.isEnabled = true
         standBTN.isEnabled = true
