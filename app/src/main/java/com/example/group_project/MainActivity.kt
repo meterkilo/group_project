@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                 var intent : Intent = Intent(this@MainActivity, GameplayActivity::class.java)
                 startActivity(intent)
             } else if (v == leaderboardButton) {
-                var intent : Intent = Intent(this@MainActivity, Leaderboard::class.java)
+                var intent : Intent = Intent(this@MainActivity, LeaderboardActivity::class.java)
                 startActivity(intent)
             }
         }
