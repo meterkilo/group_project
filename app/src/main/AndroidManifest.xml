@@ -25,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+   
+        //lb
+        <activity android:name=".LeaderboardActivity" />
 
         <activity android:name=".Blackjack"/>
         <activity android:name=".GameplayActivity"/>
