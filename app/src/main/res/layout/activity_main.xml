@@ -107,6 +107,7 @@
             android:id="@+id/leaderboard_button"
             android:background="@drawable/square_button"
             android:backgroundTint="#bfbfbf"
+            android:textColor="#111111"
             android:text="Leaderboard"
             android:textSize="20sp"
             android:layout_margin="10dp"/>

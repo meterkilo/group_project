@@ -11,5 +11,5 @@ package com.example.group_project
 data class User(
     val username: String = "",
     val location: String = "",
-    val balance: Double = 0
+    val balance: Double = 0.0
 )
