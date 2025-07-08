@@ -1,11 +1,11 @@
 package com.example.group_project
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Query
 
 
 //object that handles all db functions
-object FireBaseDB{
+object FirebaseDB{
     var db : FirebaseFirestore = FirebaseFirestore.getInstance()
     var ref : CollectionReference = db.collection("users")
 
@@ -24,6 +24,21 @@ object FireBaseDB{
     fun setLocation(username: String, newLoc : String){
         ref.document(username).update("location", newLoc)
     }
+
+    //returns a sorted list of users by balance
+    fun getLeaderboard(onResult: (List<User>) -> Unit) {
+        ref
+            .orderBy("balance", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                val users = result.documents.mapNotNull { it.toObject(User::class.java) }
+                onResult(users)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+            }
+    }
+
 
 
 }
