@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
 
-class GameplayActivity: AppCompatActivity() {
+class GameplayActivity: DrawerBaseActivity() {
 
     private lateinit var dealerRV: RecyclerView
     private lateinit var playerRV: RecyclerView
@@ -43,7 +43,7 @@ class GameplayActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
-        setContentView(R.layout.activity_gameplay)
+        //setContentView(R.layout.activity_gameplay)
 
         dealerRV = findViewById(R.id.dealerRecycler)
         dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
