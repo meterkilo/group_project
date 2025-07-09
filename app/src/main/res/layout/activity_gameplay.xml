@@ -49,15 +49,21 @@
             android:textColor="#FCCC80"
             android:padding="10dp"
             android:background="#F800"/>
-        <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bet: 0"
+            android:id="@+id/betTV"
+            />
+        <SeekBar
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Enter Bet"
-            android:inputType="number"
-            android:maxLines="1"
-            android:id="@+id/bet_input"
+            android:max ="1000"
+            android:progress="1"
+            android:id="@+id/bet_seekbar"
             />
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
             android:layout_height="50dp"
