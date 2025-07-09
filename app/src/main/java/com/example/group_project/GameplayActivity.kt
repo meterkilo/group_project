@@ -130,6 +130,7 @@ class GameplayActivity: DrawerBaseActivity() {
                 // reset balance if player goes broke
                 if (round.finalBalance == 0) {
                     round.finalBalance = 5000
+                    vm.setBalance(5000)
                     if (currentUsername != null) {
                         FirebaseDB.setBal(currentUsername, 5000.0)
                     }
