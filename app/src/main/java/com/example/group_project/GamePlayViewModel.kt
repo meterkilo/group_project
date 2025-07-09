@@ -51,5 +51,12 @@ class GamePlayViewModel(app: Application): AndroidViewModel(app) {
         prefs.edit().putInt("balance",game.balance).apply()
     }
 
+    fun setBalance(newBalance: Int) {
+        game.balance = newBalance
+        _balance.value = newBalance
+        prefs.edit().putInt("balance", newBalance).apply()
+    }
+
+
 
 }

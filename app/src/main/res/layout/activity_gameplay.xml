@@ -28,8 +28,7 @@
             android:layout_marginStart="150dp"
             android:layout_marginEnd="10dp"
             android:id="@+id/game_balance"
-            android:text="$1000"
-            android:textSize="40sp"/>
+            android:textSize="20sp"/>
 
 
     </LinearLayout>

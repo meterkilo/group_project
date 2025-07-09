@@ -39,6 +39,8 @@ class GameplayActivity: AppCompatActivity() {
             sharedPref.getString("colorTheme","light")!! == "dark" -> setTheme(R.style.Theme_darkTheme)
         }
 
+        val currentUsername = sharedPref.getString("currentUsername", null)
+
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
         setContentView(R.layout.activity_gameplay)
@@ -72,11 +74,28 @@ class GameplayActivity: AppCompatActivity() {
         vm.player_cards.observe(this) {cards ->
             Log.d("MainActivity","Player cards list size = ${cards.size}")
             playerAdapter.update(cards)  }
-        vm.balance.observe(this) {bal ->
-            balanceTextView.text = "$$bal"
-             betSeekBar.max = bal
-            if(betSeekBar.progress> bal ) betSeekBar.progress = bal
+
+        //retrieves bal
+        if (currentUsername != null) {
+            FirebaseDB.getUser(currentUsername) { user ->
+                if (user != null) {
+                    runOnUiThread {
+                        val balance = user.balance.toInt()
+                        balanceTextView.text = "$$balance"
+                        betSeekBar.max = balance
+                        if (betSeekBar.progress > balance) betSeekBar.progress = balance
+                        vm.setBalance(balance)
+                    }
+                } else {
+                    runOnUiThread {
+                        balanceTextView.text = "Balance: Unknown"
+                    }
+                }
+            }
+        } else {
+            balanceTextView.text = "Balance: Unknown"
         }
+
         betSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val bet = maxOf(1, progress)
@@ -107,8 +126,10 @@ class GameplayActivity: AppCompatActivity() {
                     .show()
 
                 balanceTextView.text = "Balance: ${round.finalBalance}"
-                sharedPref.edit().putInt("balance",round.finalBalance)
-                    .apply()
+                if (currentUsername != null) {
+                    FirebaseDB.setBal(currentUsername, round.finalBalance.toDouble())
+                }
+
                 hitBTN.isEnabled =false
                 standBTN.isEnabled = false
                 dealButton.isEnabled = true
