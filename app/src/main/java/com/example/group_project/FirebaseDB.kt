@@ -13,6 +13,23 @@ object FirebaseDB {
         ref.document(user.username).set(user)
     }
 
+    //clear db for testing
+    fun deleteAllUsers() {
+        ref.get()
+            .addOnSuccessListener { snapshot ->
+                for (document in snapshot.documents) {
+                    document.reference.delete()
+                }
+            }
+    }
+
+    fun setBal(username: String, newBal: Double) {
+        ref.document(username)
+            .update("balance", newBal)
+    }
+
+
+
     fun getUser(username: String, onResult: (User?) -> Unit) {
         ref.document(username).get()
             .addOnSuccessListener { document ->

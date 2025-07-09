@@ -10,7 +10,6 @@ class BlackJackModel(private val context: Context, startBalance:Int) {
     val dealer = Hand()
 
     var balance:Int = startBalance
-        private set
     fun startRound(bet:Int){
         require(bet in 1..balance){"bet must be btwn 1 and curr balance"}
         currBet=bet

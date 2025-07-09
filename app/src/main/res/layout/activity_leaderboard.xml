@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|end"
             android:paddingEnd="8dp"
-            android:text="Location"
+            android:text="Country"
             android:textStyle="bold"
             android:textSize="16sp"/>
     </LinearLayout>
