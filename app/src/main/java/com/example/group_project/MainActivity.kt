@@ -17,8 +17,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
 import android.widget.Button
+import android.widget.FrameLayout
+import com.example.group_project.databinding.ActivityDrawerBaseBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DrawerBaseActivity() {
     private lateinit var displayNameET : EditText
     private lateinit var balanceTV : TextView
     private lateinit var lightThemeButton : Button
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var localGameHistoryLV : ListView
     private var username : String = ""
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var container : FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -43,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        setTitle("Home")
+
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -88,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 var intent : Intent = Intent(this@MainActivity, GameplayActivity::class.java)
                 startActivity(intent)
             } else if (v == leaderboardButton) {
-                var intent : Intent = Intent(this@MainActivity, Leaderboard::class.java)
+                var intent : Intent = Intent(this@MainActivity, LeaderboardActivity::class.java)
                 startActivity(intent)
             }
         }

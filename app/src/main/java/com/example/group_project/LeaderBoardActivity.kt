@@ -1,18 +1,24 @@
 package com.example.group_project
 
 import android.os.Bundle
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class LeaderboardActivity : AppCompatActivity() {
-
+class LeaderboardActivity : DrawerBaseActivity() {
     private lateinit var leaderboardContainer: LinearLayout
+    private lateinit var container : FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_leaderboard)
+        setTitle("Leaderboard")
+
+        container = findViewById(R.id.activityContainer)
+
+        layoutInflater.inflate(R.layout.activity_leaderboard, container, true)
+        //setContentView(R.layout.activity_leaderboard)
 
         leaderboardContainer = findViewById(R.id.leaderboardContainer)
 

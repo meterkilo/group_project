@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
 
-class GameplayActivity: AppCompatActivity() {
+class GameplayActivity: DrawerBaseActivity() {
 
     private lateinit var dealerRV: RecyclerView
     private lateinit var playerRV: RecyclerView
@@ -33,6 +34,9 @@ class GameplayActivity: AppCompatActivity() {
 
     private val vm: GamePlayViewModel by viewModels()
 
+
+    private lateinit var container : FrameLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPref:SharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         when {
@@ -42,7 +46,12 @@ class GameplayActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
-        setContentView(R.layout.activity_gameplay)
+
+        setTitle("Play")
+        container = findViewById(R.id.activityContainer)
+        layoutInflater.inflate(R.layout.activity_gameplay, container, true)
+
+        //setContentView(R.layout.activity_gameplay)
 
         dealerRV = findViewById(R.id.dealerRecycler)
         dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
