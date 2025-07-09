@@ -7,7 +7,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.FrameLayout
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -79,7 +81,7 @@ class GameplayActivity: DrawerBaseActivity() {
             Log.d("MainActivity","Player cards list size = ${cards.size}")
             playerAdapter.update(cards)  }
         vm.balance.observe(this) {bal ->
-            balanceTextView.text = "$$bal"
+            balanceTextView.text = "Balance: $$bal"
              betSeekBar.max = bal
             if(betSeekBar.progress> bal ) betSeekBar.progress = bal
         }

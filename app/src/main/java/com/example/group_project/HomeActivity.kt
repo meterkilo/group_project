@@ -21,7 +21,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
-import com.example.group_project.databinding.ActivityDrawerBaseBinding
+
 
 class HomeActivity : DrawerBaseActivity() {
     private lateinit var usernameTV : TextView
@@ -77,12 +77,17 @@ class HomeActivity : DrawerBaseActivity() {
         usernameTV.text = "Hi, $username!"
     }
 
+    override fun onStart() {
+        super.onStart()
+        FirebaseDB.getUser(username) { user ->  balanceTV.text = "Balance: $" + user!!.balance }
+        val bal = sharedPref.getInt("balance", 5000)
+        balanceTV.text = "$$bal"
+    }
+
     override fun onResume() {
         super.onResume()
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, HomeActivity.getHistory())
         localGameHistoryLV.adapter = adapter
-        val bal = sharedPref.getInt("balance",1000)
-        balanceTV.text = "Balance: $$bal"
     }
 
     inner class Listener : View.OnClickListener {
