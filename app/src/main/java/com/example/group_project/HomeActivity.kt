@@ -16,13 +16,15 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import com.example.group_project.databinding.ActivityDrawerBaseBinding
 
 class HomeActivity : DrawerBaseActivity() {
-    private lateinit var displayNameET : EditText
+    private lateinit var usernameTV : TextView
     private lateinit var balanceTV : TextView
     private lateinit var lightThemeButton : Button
     private lateinit var darkThemeButton : Button
@@ -31,12 +33,12 @@ class HomeActivity : DrawerBaseActivity() {
     private lateinit var localGameHistoryLV : ListView
     private var username : String = ""
     private lateinit var sharedPref: SharedPreferences
-    private lateinit var container : FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //Retrieve Color Theme from preferences before creation
         sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        username = sharedPref.getString("currentUsername", username).toString()
         if(!sharedPref.contains("colorTheme")){
             sharedPref.edit().putString("colorTheme", "light").apply()
         }
@@ -47,9 +49,6 @@ class HomeActivity : DrawerBaseActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setTitle("Home")
-
-        setContentView(R.layout.activity_main)
         setContentView(R.layout.activity_home)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -57,8 +56,10 @@ class HomeActivity : DrawerBaseActivity() {
             insets
         }
 
+        setTitle("Home")
+
         // instantiating views and buttons
-        displayNameET = findViewById(R.id.username)
+        usernameTV = findViewById(R.id.username)
         balanceTV = findViewById(R.id.balance_tv)
         lightThemeButton = findViewById(R.id.light_theme_button)
         darkThemeButton = findViewById(R.id.dark_theme_button)
@@ -73,9 +74,7 @@ class HomeActivity : DrawerBaseActivity() {
         playButton.setOnClickListener(listener)
         leaderboardButton.setOnClickListener(listener)
 
-        // listener for username
-        var textHandler : TextHandler = TextHandler()
-        displayNameET.addTextChangedListener(textHandler)
+        usernameTV.text = "Hi, $username!"
     }
 
     override fun onResume() {
@@ -83,12 +82,7 @@ class HomeActivity : DrawerBaseActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, HomeActivity.getHistory())
         localGameHistoryLV.adapter = adapter
         val bal = sharedPref.getInt("balance",1000)
-        balanceTV.text = "$$bal"
-    }
-
-    fun updateUsername() {
-        username = displayNameET.text.toString()
-        Log.w("Main", "Username : $username")
+        balanceTV.text = "Balance: $$bal"
     }
 
     inner class Listener : View.OnClickListener {
@@ -98,35 +92,11 @@ class HomeActivity : DrawerBaseActivity() {
                 startActivity(intent)
             } else if (v == leaderboardButton) {
                 var intent : Intent = Intent(this@HomeActivity, LeaderboardActivity::class.java)
+                startActivity(intent)
             }
         }
     }
 
-    inner class TextHandler : TextWatcher {
-        override fun beforeTextChanged(
-            s: CharSequence?,
-            start: Int,
-            count: Int,
-            after: Int
-        ) {
-            // does nothing
-        }
-
-        override fun onTextChanged(
-            s: CharSequence?,
-            start: Int,
-            before: Int,
-            count: Int
-        ) {
-            // does nothing
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            this@HomeActivity.updateUsername()
-        }
-
-
-    }
     //companion object for game history
     companion object {
         private val gameHistory: MutableList<String> = mutableListOf<String>()

@@ -13,7 +13,6 @@ import com.google.android.material.navigation.NavigationView
 
 open class DrawerBaseActivity : AppCompatActivity() {
     private lateinit var drawerLayout : DrawerLayout
-    private lateinit var container : FrameLayout
     private lateinit var toolBar : Toolbar
     private lateinit var navigationView : NavigationView
 
@@ -35,7 +34,7 @@ open class DrawerBaseActivity : AppCompatActivity() {
 
     fun selectActivity(item: String) {
         if (item == "Home") {
-            var intent : Intent = Intent(this, MainActivity::class.java)
+            var intent : Intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         } else if (item == "Play") {
             var intent : Intent = Intent(this, GameplayActivity::class.java)

@@ -23,13 +23,6 @@ class LeaderboardActivity : DrawerBaseActivity() {
         leaderboardContainer = findViewById(R.id.leaderboardContainer)
 
         loadLeaderboard()
-
-        //goes back to previous activity
-        val buttonBack = findViewById<ImageButton>(R.id.buttonBack)
-        buttonBack.setOnClickListener {
-            finish()
-        }
-
     }
 
      fun loadLeaderboard() {
