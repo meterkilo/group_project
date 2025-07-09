@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background = "#36393e"
+    android:padding="24dp">
+
+
+    <ImageView
+        android:id="@+id/splashImage"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:src="@drawable/welcome"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/welcomeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, Login or create a username"
+        android:textColor="#efe4c6"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter username (case sensitive)"
+        android:textColorHint="#CCCCCC"
+        android:textColor = "#efe4c6"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:backgroundTint="#CCCCCC"
+        android:layout_marginTop="8dp"/>
+
+    <!-- continue button -->
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textColor="#efe4c6"
+        android:backgroundTint="#a42626"
+        android:text="Continue"
+        android:layout_marginTop="16dp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"/>
+</LinearLayout>

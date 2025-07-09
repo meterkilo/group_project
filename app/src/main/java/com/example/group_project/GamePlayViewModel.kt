@@ -1,14 +1,16 @@
 package com.example.group_project
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.group_project.BlackJackModel
 class GamePlayViewModel(app: Application): AndroidViewModel(app) {
 
-    private val game = BlackJackModel(app, startBalance = 1000)
+    private val prefs = app.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    private val startingBalance = prefs.getInt("balance",1000)
+    private val game = BlackJackModel(app, startingBalance )
 
     private val _player_cards = MutableLiveData<List<Card>>(emptyList())
     val player_cards: LiveData<List<Card>> = _player_cards
@@ -37,6 +39,7 @@ class GamePlayViewModel(app: Application): AndroidViewModel(app) {
         _player_cards.value = game.player.cards
         _dealer_cards.value = game.dealer.cards
         _balance.value = game.balance
+        prefs.edit().putInt("balance",game.balance).apply()
 
     }
 
@@ -45,6 +48,7 @@ class GamePlayViewModel(app: Application): AndroidViewModel(app) {
         _player_cards.value = game.player.cards
         _dealer_cards.value = game.dealer.cards
         _balance.value = game.balance
+        prefs.edit().putInt("balance",game.balance).apply()
     }
 
 

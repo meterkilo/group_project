@@ -16,11 +16,12 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.FrameLayout
 import com.example.group_project.databinding.ActivityDrawerBaseBinding
 
-class MainActivity : DrawerBaseActivity() {
+class HomeActivity : DrawerBaseActivity() {
     private lateinit var displayNameET : EditText
     private lateinit var balanceTV : TextView
     private lateinit var lightThemeButton : Button
@@ -49,6 +50,7 @@ class MainActivity : DrawerBaseActivity() {
         setTitle("Home")
 
         setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -78,6 +80,8 @@ class MainActivity : DrawerBaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, HomeActivity.getHistory())
+        localGameHistoryLV.adapter = adapter
         val bal = sharedPref.getInt("balance",1000)
         balanceTV.text = "$$bal"
     }
@@ -90,11 +94,10 @@ class MainActivity : DrawerBaseActivity() {
     inner class Listener : View.OnClickListener {
         override fun onClick(v: View?) {
             if (v == playButton) {
-                var intent : Intent = Intent(this@MainActivity, GameplayActivity::class.java)
+                var intent : Intent = Intent(this@HomeActivity, GameplayActivity::class.java)
                 startActivity(intent)
             } else if (v == leaderboardButton) {
-                var intent : Intent = Intent(this@MainActivity, LeaderboardActivity::class.java)
-                startActivity(intent)
+                var intent : Intent = Intent(this@HomeActivity, LeaderboardActivity::class.java)
             }
         }
     }
@@ -119,11 +122,30 @@ class MainActivity : DrawerBaseActivity() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            this@MainActivity.updateUsername()
+            this@HomeActivity.updateUsername()
         }
 
 
     }
+    //companion object for game history
+    companion object {
+        private val gameHistory: MutableList<String> = mutableListOf<String>()
+
+        fun addHistory(net: Int, result: String){
+            if(net < 0){//if negative money
+                gameHistory.add(0, result + " -$" + (net*-1).toString())
+            }
+            else{
+                gameHistory.add(0, result + " +$" + (net).toString())
+            }
+        }
+
+        fun getHistory(): MutableList<String>{
+            return gameHistory
+        }
+
+    }
+
     private fun setupThemeButtons() {
         findViewById<AppCompatButton>(R.id.light_theme_button).setOnClickListener {
             sharedPref.edit().putString("colorTheme", "light").apply()

@@ -5,27 +5,30 @@ import com.google.firebase.firestore.Query
 
 
 //object that handles all db functions
-object FirebaseDB{
-    var db : FirebaseFirestore = FirebaseFirestore.getInstance()
-    var ref : CollectionReference = db.collection("users")
+object FirebaseDB {
+    var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    var ref: CollectionReference = db.collection("users")
 
-    fun setUser(user: User){
+    fun setUser(user: User) {
         ref.document(user.username).set(user)
     }
 
-    fun getUser(username: String){
+    fun getUser(username: String, onResult: (User?) -> Unit) {
         ref.document(username).get()
-    }
-
-    fun setBal(username: String, newBal : Double){
-        ref.document(username).update("balance", newBal)
-    }
-
-    fun setLocation(username: String, newLoc : String){
-        ref.document(username).update("location", newLoc)
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    onResult(document.toObject(User::class.java))
+                } else {
+                    onResult(null)
+                }
+            }
+            .addOnFailureListener {
+                onResult(null)
+            }
     }
 
     //returns a sorted list of users by balance
+
     fun getLeaderboard(onResult: (List<User>) -> Unit) {
         ref
             .orderBy("balance", Query.Direction.DESCENDING)
@@ -38,7 +41,9 @@ object FirebaseDB{
                 onResult(emptyList())
             }
     }
-
-
-
 }
+
+
+
+
+
