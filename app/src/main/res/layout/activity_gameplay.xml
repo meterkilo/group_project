@@ -40,18 +40,19 @@
         android:layout_weight="1"
         android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dealer"
-            android:textSize="25sp"
-            android:textColor="#FCCC80"
-            android:padding="10dp"
-            android:background="#F800"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Dealer"-->
+<!--            android:textSize="25sp"-->
+<!--            android:textColor="#FCCC80"-->
+<!--            android:padding="10dp"-->
+<!--            android:background="#F800"/>-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bet: 0"
+            android:textSize="24sp"
             android:id="@+id/betTV"
             />
         <SeekBar
@@ -78,21 +79,30 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:background="#F800"
+        android:background="#006400"
         android:orientation="vertical">
 
-            <!---Dealer cards - recycler view -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:id="@+id/dealerRecycler"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:clipToPadding="false"
-                android:scrollbars="horizontal"
-                />
+        <!-- Dealer label -->
+        <TextView
+            android:id="@+id/dealerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dealer"
+            android:textSize="24sp"
+            android:textColor="#FCCC80"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Dealer cards -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:id="@+id/dealerRecycler"
+        />
+
             <!---Player cards - recycler view -->
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

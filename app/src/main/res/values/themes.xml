@@ -14,5 +14,11 @@
         <item name="android:textColor">#eeeeee</item>
     </style>
 
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">#a19408</item>
+        <item name="android:textColorPrimary">#e8e7e1</item>
+    </style>
+
+
     <style name="Theme.Group_project" parent="Base.Theme.Group_project" />
 </resources>

@@ -81,7 +81,7 @@ class GameplayActivity: AppCompatActivity() {
                 if (user != null) {
                     runOnUiThread {
                         val balance = user.balance.toInt()
-                        balanceTextView.text = "$$balance"
+                        balanceTextView.text = "Balance: $$balance"
                         betSeekBar.max = balance
                         if (betSeekBar.progress > balance) betSeekBar.progress = balance
                         vm.setBalance(balance)
@@ -99,7 +99,7 @@ class GameplayActivity: AppCompatActivity() {
         betSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val bet = maxOf(1, progress)
-                bettv.text = "Bet:$$bet"
+                bettv.text = "Bet: $$bet"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -110,22 +110,20 @@ class GameplayActivity: AppCompatActivity() {
         vm.result.observe(this){ result ->
             result?.let{ round->
                 val msg = when (round.outcome){
-                    Outcome.PLAYER_BLACKJACK, Outcome.PLAYER_WIN -> "You Win! +${round.netChange}"
-                    Outcome.DEALER_WIN , Outcome.PLAYER_BUST-> "You Lose -${round.netChange}"
+                    Outcome.PLAYER_BLACKJACK, Outcome.PLAYER_WIN -> "You Win! +$${round.netChange}"
+                    Outcome.DEALER_WIN , Outcome.PLAYER_BUST-> "You Lose -$${round.netChange}"
                     Outcome.PUSH -> "Push."
-                }+ "\n Balance = ${round.finalBalance}"
+                }+ "\n Balance = $${round.finalBalance}"
 
-                AlertDialog.Builder(this)
-                    .setTitle("RoundOver")
-                    .setTitle(msg)
+                AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                    .setTitle("Round Over")
+                    .setMessage(msg)
                     .setCancelable(false)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                        dealButton.isEnabled
-                    }
+                    .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
                     .show()
 
-                balanceTextView.text = "Balance: ${round.finalBalance}"
+
+                balanceTextView.text = "Balance: $${round.finalBalance}"
                 if (currentUsername != null) {
                     FirebaseDB.setBal(currentUsername, round.finalBalance.toDouble())
                 }
