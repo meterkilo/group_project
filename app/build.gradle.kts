@@ -41,14 +41,18 @@ android {
 dependencies {
     //db
     implementation("com.google.firebase:firebase-firestore:24.11.1")
+    implementation("com.google.android.gms:play-services-ads")
+    implementation("com.google.android.gms:play-services-location")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation( "com.google.android.gms:play-services-ads:24.4.0" )
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
