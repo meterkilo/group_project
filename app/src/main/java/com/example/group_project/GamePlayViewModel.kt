@@ -1,9 +1,11 @@
 package com.example.group_project
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.example.group_project.BlackJackModel
 class GamePlayViewModel(app: Application): AndroidViewModel(app) {
