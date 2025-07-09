@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -24,7 +25,7 @@ class GameplayActivity: DrawerBaseActivity() {
     private lateinit var betSeekBar: SeekBar
     private lateinit var bettv : TextView
     private lateinit var dealButton: Button
-
+    private lateinit var container : FrameLayout
 
     private val dealerAdapter = CardAdapter()
     private val playerAdapter  = CardAdapter()
@@ -43,7 +44,9 @@ class GameplayActivity: DrawerBaseActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
-        //setContentView(R.layout.activity_gameplay)
+
+        container = findViewById(R.id.activityContainer)
+        layoutInflater.inflate(R.layout.activity_gameplay, container, true)
 
         dealerRV = findViewById(R.id.dealerRecycler)
         dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
