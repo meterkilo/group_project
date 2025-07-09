@@ -2,12 +2,14 @@ package com.example.group_project
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -141,6 +143,10 @@ class GameplayActivity: DrawerBaseActivity() {
 
         dealButton.setOnClickListener {
             val bet = maxOf(1, betSeekBar.progress)
+            if (bet > (vm.balance.value?:0)){
+                Toast.makeText(this,"Bet cant exceed your balance", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             vm.startRound(bet)
 
