@@ -55,6 +55,11 @@ class WelcomeActivity : AppCompatActivity() {
         usernameInput = findViewById(R.id.username_input)
         continueButton = findViewById(R.id.continue_button)
 
+        val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        if(prefs.contains("currentUsername")){
+            usernameInput.setText(prefs.getString("currentUsername", ""))
+        }
+
         //textenter handler
         continueButton.setOnClickListener {
             val enteredUsername = usernameInput.text.toString().trim()
