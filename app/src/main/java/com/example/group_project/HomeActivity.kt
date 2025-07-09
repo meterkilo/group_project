@@ -71,6 +71,12 @@ class HomeActivity : AppCompatActivity() {
         displayNameET.addTextChangedListener(textHandler)
     }
 
+    override fun onResume() {
+        super.onResume()
+        val bal = sharedPref.getInt("balance",1000)
+        balanceTV.text = "$$bal"
+    }
+
     fun updateUsername() {
         username = displayNameET.text.toString()
         Log.w("Main", "Username : $username")
@@ -110,6 +116,7 @@ class HomeActivity : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {
             this@HomeActivity.updateUsername()
         }
+
 
     }
     private fun setupThemeButtons() {

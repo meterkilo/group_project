@@ -12,12 +12,15 @@
         android:layout_weight="1"
         android:gravity="center_vertical">
 
+
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:id="@+id/leave_game_button"
             android:text="Back"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:textColor="#111111"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,6 +30,8 @@
             android:id="@+id/game_balance"
             android:text="$1000"
             android:textSize="40sp"/>
+
+
     </LinearLayout>
 
     <!-- Dealer Text -->
@@ -44,6 +49,22 @@
             android:textColor="#FCCC80"
             android:padding="10dp"
             android:background="#F800"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Enter Bet"
+            android:inputType="number"
+            android:maxLines="1"
+            android:id="@+id/bet_input"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/DealBtn"
+            android:text="Start"
+            android:layout_marginStart="10dp"
+            android:textColor="#111111"/>
 
     </LinearLayout>
 
@@ -159,7 +180,8 @@
             android:id="@+id/hit_button"
             android:text="Hit"
             android:textSize="20sp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:textColor="#111111"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
@@ -167,6 +189,7 @@
             android:id="@+id/stand_button"
             android:text="Stand"
             android:textSize="20sp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp"
+            android:textColor="#111111"/>
     </LinearLayout>
 </LinearLayout>
