@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -127,6 +128,16 @@ class GameplayActivity: DrawerBaseActivity() {
                     }
                     .show()
 
+                // reset balance if player goes broke
+                if (round.finalBalance == 0) {
+                    round.finalBalance = 5000
+                    if (currentUsername != null) {
+                        FirebaseDB.setBal(currentUsername, 5000.0)
+                    }
+
+                    Toast.makeText(this, "You went broke! Here's a Lifeline, on us!", Toast.LENGTH_LONG).show()
+                }
+
                 balanceTextView.text = "Balance: ${round.finalBalance}"
                 betSeekBar.max = round.finalBalance
                 if (currentUsername != null) {
@@ -143,9 +154,6 @@ class GameplayActivity: DrawerBaseActivity() {
             val bet = maxOf(1, betSeekBar.progress)
 
             vm.startRound(bet)
-
-
-
 
             hitBTN.isEnabled = true
             standBTN.isEnabled = true

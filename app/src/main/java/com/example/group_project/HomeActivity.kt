@@ -76,6 +76,9 @@ class HomeActivity : AppCompatActivity() {
             FirebaseDB.getUser(currentUser) { user ->
                 if (user != null) {
                     runOnUiThread {
+                        if (user.balance <= 0) {
+                            FirebaseDB.setBal(user.username, 5000.0)
+                        }
                         balanceTV.text = "Balance: \uD83D\uDCB2${user.balance}"
                     }
                 } else {

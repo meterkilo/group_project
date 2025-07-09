@@ -69,7 +69,7 @@ enum class Outcome{
     // ace +10, p > d but p=<21 or d >21, same but with d winning, p>21, tie
 }
 data class RoundResult (
-    val outcome : Outcome, val netChange : Int, val finalBalance :  Int
+    val outcome : Outcome, val netChange : Int, var finalBalance :  Int
 )
 private class Deck(private val context: Context){
     private val cards = mutableListOf<Card>()
