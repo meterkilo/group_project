@@ -18,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
 import android.widget.Button
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     private lateinit var displayNameET : EditText
     private lateinit var balanceTV : TextView
     private lateinit var lightThemeButton : Button
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -85,10 +85,10 @@ class MainActivity : AppCompatActivity() {
     inner class Listener : View.OnClickListener {
         override fun onClick(v: View?) {
             if (v == playButton) {
-                var intent : Intent = Intent(this@MainActivity, GameplayActivity::class.java)
+                var intent : Intent = Intent(this@HomeActivity, GameplayActivity::class.java)
                 startActivity(intent)
             } else if (v == leaderboardButton) {
-                var intent : Intent = Intent(this@MainActivity, Leaderboard::class.java)
+                var intent : Intent = Intent(this@HomeActivity, LeaderboardActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            this@MainActivity.updateUsername()
+            this@HomeActivity.updateUsername()
         }
 
 
