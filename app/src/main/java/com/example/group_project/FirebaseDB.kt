@@ -27,14 +27,6 @@ object FirebaseDB {
             }
     }
 
-    fun setBal(username: String, newBal: Double) {
-        ref.document(username).update("balance", newBal)
-    }
-
-    fun setLocation(username: String, newLoc: String) {
-        ref.document(username).update("location", newLoc)
-    }
-
     //returns a sorted list of users by balance
 
     fun getLeaderboard(onResult: (List<User>) -> Unit) {

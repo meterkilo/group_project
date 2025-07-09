@@ -71,6 +71,7 @@ class WelcomeActivity : AppCompatActivity() {
             if (user != null) {
                 Log.d("WelcomeActivity", "User exists: $username")
                 saveCurrentUsername(username)
+                Toast.makeText(this, "Welcome Back!", Toast.LENGTH_SHORT).show()
                 goToHomeActivity()
             } else {
                 Log.d("WelcomeActivity", "User doesn't exist. Creating new user...")
@@ -144,8 +145,6 @@ class WelcomeActivity : AppCompatActivity() {
             createNewUser(username, "Unknown")
         }
     }
-
-
 
 
     private fun createNewUser(username: String, location: String) {
