@@ -2,6 +2,7 @@ package com.example.group_project
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -113,20 +114,18 @@ class GameplayActivity: DrawerBaseActivity() {
         vm.result.observe(this){ result ->
             result?.let{ round->
                 val msg = when (round.outcome){
-                    Outcome.PLAYER_BLACKJACK, Outcome.PLAYER_WIN -> "You Win! +${round.netChange}"
-                    Outcome.DEALER_WIN , Outcome.PLAYER_BUST-> "You Lose -${round.netChange}"
+                    Outcome.PLAYER_BLACKJACK, Outcome.PLAYER_WIN -> "You Win! +$${round.netChange}"
+                    Outcome.DEALER_WIN , Outcome.PLAYER_BUST-> "You Lose -$${round.netChange}"
                     Outcome.PUSH -> "Push."
-                }+ "\n Balance = ${round.finalBalance}"
+                }+ "\n Balance = $${round.finalBalance}"
 
-                AlertDialog.Builder(this)
-                    .setTitle("RoundOver")
-                    .setTitle(msg)
+                AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
+                    .setTitle("Round Over")
+                    .setMessage(msg)
                     .setCancelable(false)
-                    .setPositiveButton("Ok") { dialog, _ ->
-                        dialog.dismiss()
-                        dealButton.isEnabled
-                    }
+                    .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
                     .show()
+
 
                 // reset balance if player goes broke
                 if (round.finalBalance == 0) {
@@ -140,6 +139,7 @@ class GameplayActivity: DrawerBaseActivity() {
 
                 balanceTextView.text = "Balance: ${round.finalBalance}"
                 betSeekBar.max = round.finalBalance
+
                 if (currentUsername != null) {
                     FirebaseDB.setBal(currentUsername, round.finalBalance.toDouble())
                 }
@@ -152,6 +152,10 @@ class GameplayActivity: DrawerBaseActivity() {
 
         dealButton.setOnClickListener {
             val bet = maxOf(1, betSeekBar.progress)
+            if (bet > (vm.balance.value?:0)){
+                Toast.makeText(this,"Bet cant exceed your balance", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             vm.startRound(bet)
 
