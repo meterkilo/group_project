@@ -8,8 +8,10 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -36,6 +38,11 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
+        //load animation
+        val splashImage = findViewById<ImageView>(R.id.splashImage)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.bounce)
+        splashImage.startAnimation(animation)
+
         // create banner ad
         MobileAds.initialize(this)
         adView = findViewById(R.id.adView)
@@ -48,6 +55,7 @@ class WelcomeActivity : AppCompatActivity() {
         usernameInput = findViewById(R.id.username_input)
         continueButton = findViewById(R.id.continue_button)
 
+        //textenter handler
         continueButton.setOnClickListener {
             val enteredUsername = usernameInput.text.toString().trim()
             if (enteredUsername.isEmpty()) {
