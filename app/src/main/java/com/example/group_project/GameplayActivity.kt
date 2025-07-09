@@ -2,29 +2,31 @@ package com.example.group_project
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AlertDialog
 
-class GameplayActivity: AppCompatActivity() {
+class GameplayActivity: DrawerBaseActivity() {
 
     private lateinit var dealerRV: RecyclerView
     private lateinit var playerRV: RecyclerView
     private lateinit var hitBTN: Button
     private lateinit var standBTN: Button
-    private lateinit var backBTN: Button
     private lateinit var balanceTextView: TextView
     private lateinit var betSeekBar: SeekBar
     private lateinit var bettv : TextView
     private lateinit var dealButton: Button
-
+    private lateinit var container : FrameLayout
 
     private val dealerAdapter = CardAdapter()
     private val playerAdapter  = CardAdapter()
@@ -43,7 +45,9 @@ class GameplayActivity: AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         Log.d("MainActivity","entered oncreate in gameplayactivity")
-        setContentView(R.layout.activity_gameplay)
+
+        container = findViewById(R.id.activityContainer)
+        layoutInflater.inflate(R.layout.activity_gameplay, container, true)
 
         dealerRV = findViewById(R.id.dealerRecycler)
         dealerRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -57,7 +61,6 @@ class GameplayActivity: AppCompatActivity() {
 
         hitBTN = findViewById(R.id.hit_button)
         standBTN =findViewById(R.id.stand_button)
-        backBTN = findViewById(R.id.leave_game_button)
         balanceTextView = findViewById(R.id.game_balance)
         betSeekBar = findViewById(R.id.bet_seekbar)
         bettv = findViewById(R.id.betTV)
@@ -81,6 +84,7 @@ class GameplayActivity: AppCompatActivity() {
                 if (user != null) {
                     runOnUiThread {
                         val balance = user.balance.toInt()
+
                         balanceTextView.text = "Balance: $$balance"
                         betSeekBar.max = balance
                         if (betSeekBar.progress > balance) betSeekBar.progress = balance
@@ -123,7 +127,9 @@ class GameplayActivity: AppCompatActivity() {
                     .show()
 
 
-                balanceTextView.text = "Balance: $${round.finalBalance}"
+                balanceTextView.text = "Balance: ${round.finalBalance}"
+                betSeekBar.max = round.finalBalance
+
                 if (currentUsername != null) {
                     FirebaseDB.setBal(currentUsername, round.finalBalance.toDouble())
                 }
@@ -136,6 +142,10 @@ class GameplayActivity: AppCompatActivity() {
 
         dealButton.setOnClickListener {
             val bet = maxOf(1, betSeekBar.progress)
+            if (bet > (vm.balance.value?:0)){
+                Toast.makeText(this,"Bet cant exceed your balance", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             vm.startRound(bet)
 
@@ -149,15 +159,5 @@ class GameplayActivity: AppCompatActivity() {
         }
         hitBTN.setOnClickListener {vm.hit() }
         standBTN.setOnClickListener { vm.stand() }
-        backBTN.setOnClickListener { finish() }
-
-
-
-
-
-
-
-
-
     }
 }

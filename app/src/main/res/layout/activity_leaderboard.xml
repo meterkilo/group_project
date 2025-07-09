@@ -15,17 +15,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/leaderboard_title_bg"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:padding="12dp"
         android:layout_marginBottom="12dp">
-
-        <ImageButton
-            android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_revert"
-            app:tint="#000000"/>
 
         <TextView
             android:id="@+id/textTitle"
@@ -34,7 +26,6 @@
             android:text="Leaderboard"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:paddingStart="90dp"
             android:textColor="#000000"/>
     </LinearLayout>
 

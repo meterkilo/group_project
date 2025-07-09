@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -56,9 +57,8 @@ class WelcomeActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.continue_button)
 
         val prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        if(prefs.contains("currentUsername")){
-            usernameInput.setText(prefs.getString("currentUsername", ""))
-        }
+        val username : String = prefs.getString("currentUsername", "").toString()
+        usernameInput.setText(username)
 
         //textenter handler
         continueButton.setOnClickListener {
