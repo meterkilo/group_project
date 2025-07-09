@@ -52,6 +52,14 @@ class BlackJackModel(private val context: Context, startBalance:Int) {
             Outcome.PLAYER_BUST -> -currBet
             Outcome.PUSH -> 0
         }
+        //send result to history
+        when(outcome){
+            Outcome.PLAYER_BLACKJACK -> HomeActivity.addHistory(net,"Player Blackjack")
+            Outcome.PLAYER_WIN -> HomeActivity.addHistory(net,"Player Won")
+            Outcome.DEALER_WIN -> HomeActivity.addHistory(net,"Dealer Won")
+            Outcome.PLAYER_BUST -> HomeActivity.addHistory(net,"Player Busted")
+            Outcome.PUSH -> HomeActivity.addHistory(net,"Push")
+        }
         balance+= net
         return RoundResult(outcome,net,balance)
     }

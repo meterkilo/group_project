@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.content.Intent
+import android.widget.ArrayAdapter
 import android.widget.Button
 
 class HomeActivity : AppCompatActivity() {
@@ -73,6 +74,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, HomeActivity.getHistory())
+        localGameHistoryLV.adapter = adapter
         val bal = sharedPref.getInt("balance",1000)
         balanceTV.text = "$$bal"
     }
@@ -119,6 +122,25 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+    //companion object for game history
+    companion object {
+        private val gameHistory: MutableList<String> = mutableListOf<String>()
+
+        fun addHistory(net: Int, result: String){
+            if(net < 0){//if negative money
+                gameHistory.add(0, result + " -$" + (net*-1).toString())
+            }
+            else{
+                gameHistory.add(0, result + " +$" + (net).toString())
+            }
+        }
+
+        fun getHistory(): MutableList<String>{
+            return gameHistory
+        }
+
+    }
+
     private fun setupThemeButtons() {
         findViewById<AppCompatButton>(R.id.light_theme_button).setOnClickListener {
             sharedPref.edit().putString("colorTheme", "light").apply()
