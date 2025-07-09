@@ -82,6 +82,7 @@ class GameplayActivity: DrawerBaseActivity() {
                 if (user != null) {
                     runOnUiThread {
                         val balance = user.balance.toInt()
+
                         balanceTextView.text = "Balance: $$balance"
                         betSeekBar.max = balance
                         if (betSeekBar.progress > balance) betSeekBar.progress = balance
@@ -127,6 +128,7 @@ class GameplayActivity: DrawerBaseActivity() {
                     .show()
 
                 balanceTextView.text = "Balance: ${round.finalBalance}"
+                betSeekBar.max = round.finalBalance
                 if (currentUsername != null) {
                     FirebaseDB.setBal(currentUsername, round.finalBalance.toDouble())
                 }
