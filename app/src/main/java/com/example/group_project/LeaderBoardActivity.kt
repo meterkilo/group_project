@@ -18,11 +18,6 @@ class LeaderboardActivity : DrawerBaseActivity() {
         layoutInflater.inflate(R.layout.activity_leaderboard, container, true)
         setTitle("Leaderboard")
 
-        container = findViewById(R.id.activityContainer)
-
-        layoutInflater.inflate(R.layout.activity_leaderboard, container, true)
-        //setContentView(R.layout.activity_leaderboard)
-
         leaderboardContainer = findViewById(R.id.leaderboardContainer)
 
         loadLeaderboard()

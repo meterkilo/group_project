@@ -20,7 +20,6 @@ class GameplayActivity: DrawerBaseActivity() {
     private lateinit var playerRV: RecyclerView
     private lateinit var hitBTN: Button
     private lateinit var standBTN: Button
-    private lateinit var backBTN: Button
     private lateinit var balanceTextView: TextView
     private lateinit var betSeekBar: SeekBar
     private lateinit var bettv : TextView
@@ -60,7 +59,6 @@ class GameplayActivity: DrawerBaseActivity() {
 
         hitBTN = findViewById(R.id.hit_button)
         standBTN =findViewById(R.id.stand_button)
-        backBTN = findViewById(R.id.leave_game_button)
         balanceTextView = findViewById(R.id.game_balance)
         betSeekBar = findViewById(R.id.bet_seekbar)
         bettv = findViewById(R.id.betTV)
@@ -84,7 +82,7 @@ class GameplayActivity: DrawerBaseActivity() {
                 if (user != null) {
                     runOnUiThread {
                         val balance = user.balance.toInt()
-                        balanceTextView.text = "$$balance"
+                        balanceTextView.text = "Balance: $$balance"
                         betSeekBar.max = balance
                         if (betSeekBar.progress > balance) betSeekBar.progress = balance
                         vm.setBalance(balance)
@@ -102,7 +100,7 @@ class GameplayActivity: DrawerBaseActivity() {
         betSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val bet = maxOf(1, progress)
-                bettv.text = "Bet:$$bet"
+                bettv.text = "Bet: $$bet"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -154,15 +152,5 @@ class GameplayActivity: DrawerBaseActivity() {
         }
         hitBTN.setOnClickListener {vm.hit() }
         standBTN.setOnClickListener { vm.stand() }
-        backBTN.setOnClickListener { finish() }
-
-
-
-
-
-
-
-
-
     }
 }
